@@ -1,5 +1,9 @@
 import { filters, todoStorage, pluralize } from './util'
-import { compile, h, createApp, onMounted, onUnmounted, reactive, computed, effect, watch } from '@vue/vue'
+import {
+  compile, h, createApp,
+  onMounted, onUnmounted,
+  reactive, computed, effect, watch
+} from '@vue/vue'
 
 const RootComponent = {
   render () {

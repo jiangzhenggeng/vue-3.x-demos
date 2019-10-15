@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TodoMVC example</title>
+  <style>
+    .item .delete {
+      display: none;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .item:hover .delete {
+      display: inline;
+      color: #666;
+      text-decoration: underline;
+    }
+    .action a{
+      margin-right: 10px;
+    }
+    .action a:last-child{
+      margin-right: 0px;
+    }
+  </style>
+</head>
+<body>
+<div id="app"></div>
+
+<div id="todo-template" type="text/template" style="display: none">
+  <div>
+    <input v-model="state.input" @keyup.enter.trim="keyEnter">
+  </div>
+  <div>
+    <ul>
+      <li
+        v-for="item in state.filteredTodos"
+        :key="item.id"
+        class="item"
+      >
+        <input type="checkbox" v-model="item.completed" :value="item.id"/>
+        <input
+          v-if="state.editItem && state.editItem.id==item.id"
+          type="text"
+          v-model="state.editTitle"
+          :value="state.editItem.title"
+          @keyup.enter="completedEdit($event,item.id)"
+          @blur="completedEdit($event,item.id)"
+        />
+        <span
+          v-else
+          @dblclick="editAction(item)"
+        >{{ item.title }}</span>
+        <span class="delete" @click="deleteAction(item.id)">删除</span>
+      </li>
+    </ul>
+  </div>
+  <div class="action">
+    <a href="#/all" :class="{ selected: state.visibility == 'all' }">All</a>
+    <a href="#/active" :class="{ selected: state.visibility == 'active' }">Active</a>
+    <a href="#/completed" :class="{ selected: state.visibility == 'completed' }">Completed</a>
+  </div>
+</div>
+<script src="/__build__/todomvc-v2.js"></script>
+</body>
+</html>
